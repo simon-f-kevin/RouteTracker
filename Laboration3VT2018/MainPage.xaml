@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="Laboration3VT2018.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Laboration3VT2018"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <TextBlock HorizontalAlignment="Center" Margin="0,50,0,0" Text="My Routes"
+                   TextWrapping="Wrap" VerticalAlignment="Top"
+                   FontFamily="Calibri" FontSize="40"/>
+        <ListView HorizontalAlignment="Center" Height="500" Margin="0,130,0,0"
+                  VerticalAlignment="Top" Width="400" x:Name="RoutesListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Tapped="Route_Tapped">
+                        <TextBlock Text="{Binding RouteName}" 
+                           Margin="20,0,20,8"
+                           FontFamily="Calibri"
+                           FontSize="24"  
+                           FontWeight="SemiBold"
+                           Foreground="Gray" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Content="New Route" HorizontalAlignment="Center" Margin="0,655,0,0"
+            VerticalAlignment="Top" Click="NewRouteButton_Click" Width="400"
+            Height="80" FontFamily="Calibri" FontSize="30" FontWeight="ExtraBold"/>
+
+
+    </Grid>
+</Page>

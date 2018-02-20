@@ -4,6 +4,7 @@ using Windows.UI;
 
 namespace Laboration3VT2018.Models
 {
+    [Serializable()]
     public class Position
     {
         public Geocoordinate GeoCoordinates { get; set; }

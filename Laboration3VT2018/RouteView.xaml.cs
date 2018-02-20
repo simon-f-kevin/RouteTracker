@@ -34,5 +34,10 @@ namespace Laboration3VT2018
             mainViewId = ((App)App.Current).MainViewId;
 
         }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
     }
 }

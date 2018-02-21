@@ -7,7 +7,7 @@ namespace Laboration3VT2018.Models
     [Serializable()]
     public class Position
     {
-        public Geocoordinate GeoCoordinates { get; set; }
+        public Geoposition GeoPosition { get; set; }
         public bool IsVisited { get; set; }
         public float VisitSpeed { get; set; }
         public DateTime VisitedTime { get; set; }

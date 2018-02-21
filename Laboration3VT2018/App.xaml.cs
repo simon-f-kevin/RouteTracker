@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Laboration3VT2018.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,6 +28,8 @@ namespace Laboration3VT2018
         public int MainViewId;
         public int RouteViewId;
         public int NewRouteViewId;
+        static public List<Route> listOfRoutes;
+        static public StorageFolder localFolder;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -45,7 +49,7 @@ namespace Laboration3VT2018
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
+            localFolder = ApplicationData.Current.LocalFolder;
             MainViewId = 1;
             RouteViewId = 2;
             NewRouteViewId = 3;

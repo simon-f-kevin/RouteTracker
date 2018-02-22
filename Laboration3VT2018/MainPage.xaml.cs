@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using Newtonsoft.Json;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -57,19 +58,19 @@ namespace Laboration3VT2018
                 if (App.listOfRoutes != null) RoutesListView.ItemsSource = App.listOfRoutes;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //App.listOfRoutes.Add(new Route
-                //{
-                //    RouteName = "No Routes Found",
-                //    StartPosition = new Position(),
-                //    EndPosition = new Position(),
-                //    MarkedPositions = null,
-                //});
-
-                //RoutesListView.ItemsSource = App.listOfRoutes;
+                var strings = ex.Message;
+                var errorList = new List<Route>();
+                errorList.Add(new Route { RouteName = strings });
+                RoutesListView.ItemsSource = errorList;
             }
 
+
+        }
+
+        private void RoutesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
         }
     }

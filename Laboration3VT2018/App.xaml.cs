@@ -50,6 +50,7 @@ namespace Laboration3VT2018
         {
             Frame rootFrame = Window.Current.Content as Frame;
             localFolder = ApplicationData.Current.LocalFolder;
+            listOfRoutes = new List<Route>();
             MainViewId = 1;
             RouteViewId = 2;
             NewRouteViewId = 3;

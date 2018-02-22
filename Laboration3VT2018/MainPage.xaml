@@ -13,7 +13,8 @@
                    TextWrapping="Wrap" VerticalAlignment="Top"
                    FontFamily="Calibri" FontSize="40"/>
         <ListView HorizontalAlignment="Center" Height="500" Margin="0,130,0,0"
-                  VerticalAlignment="Top" Width="400" x:Name="RoutesListView">
+                  VerticalAlignment="Top" Width="400" x:Name="RoutesListView"
+                  SelectionChanged="RoutesListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Tapped="Route_Tapped">

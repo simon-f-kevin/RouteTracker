@@ -11,25 +11,28 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Button x:Name="backButton" Content="Back" VerticalAlignment="Top"
                 Margin="16,5,0,0" Click="backButton_Click"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0,50,0,0" Text="New Route"
-                   TextWrapping="Wrap" VerticalAlignment="Top"
+        <TextBlock x:Name="pageTitle" HorizontalAlignment="Center" Margin="0,50,0,0"
+                   Text="New Route" TextWrapping="Wrap" VerticalAlignment="Top"
                    FontFamily="Calibri" FontSize="40"/>
         <TextBlock x:Name="RouteNameBlock" Text="Name of route: " VerticalAlignment="Top"
                    HorizontalAlignment="Center" Margin="0,150,270,0" Width="120"/>
         <TextBox x:Name="RouteNameBox" VerticalAlignment="Top"
                  HorizontalAlignment="center" Margin="90,150,0,0" Width="260"
                  PlaceholderText="Enter name here..."/>
-        <Grid x:Name="MapRectangle" VerticalAlignment="center"
+        <Grid x:Name="MapRectangle" VerticalAlignment="Center"
               HorizontalAlignment="Center" Width="400" Height="380" Margin="0,30,0,0">
-                <Maps:MapControl
+            <Maps:MapControl
                 x:Name="RouteMapControl"            
                 ZoomInteractionMode="GestureAndControl"
                 TiltInteractionMode="GestureAndControl"   
+                MapTapped="RouteMapControl_MapTapped"
                 MapServiceToken="BoFwcQQMupzMjLfxosys~_DbsraxqOP6B7uW7cgRiog~AgeypKg6V3lVKah4SzCauLJYJZMeKvTwvLNk6y7vypfrSen9OlwJ1TkNEltqjMPr"/>
         </Grid>
-        <Button x:Name="UpdatePositionButton"/>
-        <Button Content="Save Route" HorizontalAlignment="Center" Margin="0,655,0,0"
+        <Grid x:Name="ButtonGrid" VerticalAlignment="Center" Margin="0,0,0,40">
+            <Button Content="Save Route" HorizontalAlignment="Center" Margin="0,655,0,0"
             VerticalAlignment="Top" Click="SaveButton_Click" Width="400"
             Height="80" FontFamily="Calibri" FontSize="30" FontWeight="ExtraBold"/>
+        </Grid>
+        
     </Grid>
 </Page>

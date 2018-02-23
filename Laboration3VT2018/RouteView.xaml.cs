@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Laboration3VT2018.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,6 +26,8 @@ namespace Laboration3VT2018
     public sealed partial class RouteView : Page
     {
         private int mainViewId;
+        private string RouteLengthString;
+        private Route thisRoute;
 
         public RouteView()
         {
@@ -31,13 +36,21 @@ namespace Laboration3VT2018
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            
+            //thisRoute = App.listOfRoutes.Where()
             mainViewId = ((App)App.Current).MainViewId;
+            RouteLengthString = "123";
 
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void RouteMapControl_MapTapped(Windows.UI.Xaml.Controls.Maps.MapControl sender, Windows.UI.Xaml.Controls.Maps.MapInputEventArgs args)
+        {
+
         }
     }
 }

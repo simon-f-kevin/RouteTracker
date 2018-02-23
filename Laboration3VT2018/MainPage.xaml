@@ -17,13 +17,14 @@
                   SelectionChanged="RoutesListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Tapped="Route_Tapped">
+                    <StackPanel >
                         <TextBlock Text="{Binding RouteName}" 
                            Margin="20,0,20,8"
                            FontFamily="Calibri"
                            FontSize="24"  
                            FontWeight="SemiBold"
-                           Foreground="Gray" />
+                           Foreground="Gray" 
+                           Tapped="Route_Tapped"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

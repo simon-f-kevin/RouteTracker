@@ -98,6 +98,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MapHelper.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Route.cs" />
     <Compile Include="NewRouteView.xaml.cs">

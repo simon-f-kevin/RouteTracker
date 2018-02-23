@@ -5,11 +5,33 @@
     xmlns:local="using:Laboration3VT2018"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:Name="pageTitle" Text="RouteView" />
         <Button x:Name="backButton" Content="Back" VerticalAlignment="Top"
-                Margin="0,30,0,0" Click="backButton_Click"/>
+                Margin="16,5,0,0" Click="backButton_Click"/>
+        <TextBlock x:Name="pageTitle" HorizontalAlignment="Center" Margin="0,50,0,0"
+                   Text="{Binding RouteName}" TextWrapping="Wrap" VerticalAlignment="Top"
+                   FontFamily="Calibri" FontSize="40"/>
+        <Grid x:Name="MapRectangle" VerticalAlignment="Center"
+              HorizontalAlignment="Center" Width="400" Height="400" Margin="0,-40,0,0">
+            <Maps:MapControl
+                x:Name="RouteMapControl"            
+                ZoomInteractionMode="GestureAndControl"
+                TiltInteractionMode="GestureAndControl"   
+                MapTapped="RouteMapControl_MapTapped"
+                MapServiceToken="BoFwcQQMupzMjLfxosys~_DbsraxqOP6B7uW7cgRiog~AgeypKg6V3lVKah4SzCauLJYJZMeKvTwvLNk6y7vypfrSen9OlwJ1TkNEltqjMPr"/>
+        </Grid>
+        <Grid x:Name="InfoGrid" VerticalAlignment="Top" HorizontalAlignment="Center"
+              Margin="16,580,16,0" Height="170" Width="400">
+            <TextBlock Text="Route length:"  Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="RouteLenBlock" Text="{Binding RouteLengthString}"  Margin="100,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <TextBlock Text="Start point:" Margin="0,20,0,0"/>
+            <TextBlock x:Name="StartPointBlock" Text="{Binding RouteLengthString}"  Margin="100,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <TextBlock Text="End point:" Margin="0,40,0,0"/>
+            <TextBlock x:Name="EndPointBlock" Text="{Binding RouteLengthString}"  Margin="100,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+        </Grid>
     </Grid>
 </Page>

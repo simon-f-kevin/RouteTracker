@@ -26,6 +26,7 @@ namespace Laboration3VT2018
         Position startPosition;
         Position endPosition;
         List<Position> markedPositions;
+        MapHelper mapHelper;
 
         ContentDialogResult result;
 
@@ -36,6 +37,7 @@ namespace Laboration3VT2018
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            mapHelper = new MapHelper();
             // Specify a known location.
             while(currentPos == null) await Task.Run(() => GetCurrentPosition());
 
@@ -50,7 +52,7 @@ namespace Laboration3VT2018
             this.Frame.Navigate(typeof(MainPage));
         }
 
-        private async void RouteMapControl_MapTapped(Windows.UI.Xaml.Controls.Maps.MapControl sender, Windows.UI.Xaml.Controls.Maps.MapInputEventArgs args)
+        private async void RouteMapControl_MapTapped(MapControl sender, MapInputEventArgs args)
         {
             var geoPoint = args.Location;
 
@@ -67,7 +69,9 @@ namespace Laboration3VT2018
                     startPosition.VisitedTime = DateTime.Now;
                     startPosition.VisitSpeed = (float)currentPos.Coordinate.Speed;
                 }
-                AddIconToMap(startPosition.Point, "Start");
+                var icon = mapHelper.AddIconToMap(startPosition.Point, "Start");
+                RouteMapControl.Layers.Add(icon);
+                RouteMapControl.Center = new Geopoint(startPosition.Point);
                 return;
             }
 
@@ -75,7 +79,7 @@ namespace Laboration3VT2018
             {
                 endPosition = new Position();
                 endPosition.Point = geoPoint.Position;
-                routeToEndPoint = await GetRouteToPoint(new BasicGeoposition
+                routeToEndPoint = await mapHelper.GetRouteToPoint(new BasicGeoposition
                 {
                     Longitude = geoPoint.Position.Longitude,
                     Latitude = geoPoint.Position.Latitude
@@ -88,7 +92,7 @@ namespace Laboration3VT2018
                 endPosition.IsMonitoredPosition = true;
 
                 //set startpoint route to endpoint
-                var routeFromStart = await GetRouteToPoint(new BasicGeoposition
+                var routeFromStart = await mapHelper.GetRouteToPoint(new BasicGeoposition
                 {
                     Longitude = startPosition.Point.Longitude,
                     Latitude = startPosition.Point.Latitude
@@ -98,14 +102,18 @@ namespace Laboration3VT2018
                     Latitude = endPosition.Point.Latitude
                 });
                 startPosition.LengthToEndPoint = routeFromStart.Route.LengthInMeters;
-                AddIconToMap(endPosition.Point, "End");
+                var icon = mapHelper.AddIconToMap(endPosition.Point, "End");
+                RouteMapControl.Layers.Add(icon);
+
+                RouteMapControl.Center = new Geopoint(endPosition.Point);
+
                 return;
             }
 
             if (startPosition != null && endPosition != null)
             {
                 markedPositions = new List<Position>();
-                routeToEndPoint = await GetRouteToPoint(new BasicGeoposition
+                routeToEndPoint = await mapHelper.GetRouteToPoint(new BasicGeoposition
                 {
                     Longitude = geoPoint.Position.Longitude,
                     Latitude = geoPoint.Position.Latitude
@@ -134,7 +142,10 @@ namespace Laboration3VT2018
                 }
 
                 markedPositions.Add(newPos);
-                AddIconToMap(newPos.Point, "");
+                var icon = mapHelper.AddIconToMap(newPos.Point, "");
+
+                RouteMapControl.Layers.Add(icon);
+                RouteMapControl.Center = new Geopoint(newPos.Point);
             }
 
 
@@ -210,15 +221,6 @@ namespace Laboration3VT2018
             
         }
 
-        private async Task<MapRouteFinderResult> GetRouteToPoint(BasicGeoposition start, BasicGeoposition end)
-        {
-            return await MapRouteFinder.GetDrivingRouteAsync(
-                                                    new Geopoint(start),
-                                                    new Geopoint(end),
-                                                    MapRouteOptimization.Time,
-                                                    MapRouteRestrictions.None);
-        }
-
         private async void DisplayMonitoredPositionDialog()
         {
             ContentDialog monitoredPositionDialog = new ContentDialog
@@ -232,32 +234,6 @@ namespace Laboration3VT2018
              result = await monitoredPositionDialog.ShowAsync();
         }
 
-        private void AddIconToMap(BasicGeoposition inputPosition, string name)
-        {
-            var MyLandmarks = new List<MapElement>();
-
-            Geopoint newPoint = new Geopoint(inputPosition);
-
-            var Icon = new MapIcon
-            {
-                Location = newPoint,
-                NormalizedAnchorPoint = new Point(0.5, 1.0),
-                ZIndex = 0,
-                Title = name
-            };
-
-            MyLandmarks.Add(Icon);
-
-            var LandmarksLayer = new MapElementsLayer
-            {
-                ZIndex = 1,
-                MapElements = MyLandmarks
-            };
-
-            RouteMapControl.Layers.Add(LandmarksLayer);
-
-            RouteMapControl.Center = newPoint;
-
-        }
+        
     }
 }

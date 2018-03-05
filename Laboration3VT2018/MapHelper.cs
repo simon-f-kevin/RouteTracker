@@ -37,15 +37,7 @@ namespace Laboration3VT2018
 
 
                 return viewOfRoute;
-                //// Add the new MapRouteView to the Routes collection
-                //// of the MapControl.
-                //MapWithRoute.Routes.Add(viewOfRoute);
-
-                //// Fit the MapControl to the route.
-                //await MapWithRoute.TrySetViewBoundsAsync(
-                //      routeResult.Route.BoundingBox,
-                //      null,
-                //      Windows.UI.Xaml.Controls.Maps.MapAnimationKind.None);
+              
             }
             return null;
         }

@@ -18,7 +18,7 @@ namespace Laboration3VT2018
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        
+        private int index;
 
         public MainPage()
         {
@@ -32,6 +32,17 @@ namespace Laboration3VT2018
             AddDataToRoutesListView();
         }
 
+        private void RoutesListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+            var items = (sender as ListView).Items;
+            var route = items[index] as Route;
+            var id = route.ID;
+            var data = new RouteParameters { ID = id };
+            this.Frame.Navigate(typeof(RouteView), data);
+            
+        }
+
 
         private void NewRouteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -42,6 +53,8 @@ namespace Laboration3VT2018
         private void Route_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             //open saved route
+            var route = sender as Route;
+            
             this.Frame.Navigate(typeof(RouteView));
         }
 
@@ -71,7 +84,8 @@ namespace Laboration3VT2018
 
         private void RoutesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            index = RoutesListView.SelectedIndex;
         }
+
     }
 }

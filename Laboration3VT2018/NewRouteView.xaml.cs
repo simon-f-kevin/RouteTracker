@@ -159,6 +159,7 @@ namespace Laboration3VT2018
 
             Route newRoute = new Route()
             {
+                ID = App.listOfRoutes.Count + 1,
                 RouteName = RouteNameBox.Text,
                 StartPosition = startPosition,
                 EndPosition = endPosition,

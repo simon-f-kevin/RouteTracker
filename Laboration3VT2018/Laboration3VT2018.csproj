@@ -101,6 +101,7 @@
     <Compile Include="MapHelper.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Route.cs" />
+    <Compile Include="Models\RouteParameters.cs" />
     <Compile Include="NewRouteView.xaml.cs">
       <DependentUpon>NewRouteView.xaml</DependentUpon>
     </Compile>

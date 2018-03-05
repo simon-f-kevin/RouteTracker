@@ -23,14 +23,14 @@
                 MapTapped="RouteMapControl_MapTapped"
                 MapServiceToken="BoFwcQQMupzMjLfxosys~_DbsraxqOP6B7uW7cgRiog~AgeypKg6V3lVKah4SzCauLJYJZMeKvTwvLNk6y7vypfrSen9OlwJ1TkNEltqjMPr"/>
         </Grid>
-        <Grid x:Name="InfoGrid" VerticalAlignment="Top" HorizontalAlignment="Center"
+        <Grid x:Name="InfoGrid" VerticalAlignment="Bottom" HorizontalAlignment="Center"
               Margin="16,580,16,0" Height="170" Width="400">
             <TextBlock Text="Route length:"  Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <TextBlock x:Name="RouteLenBlock" Text="{Binding RouteLengthString}"  Margin="100,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <TextBlock Text="Start point:" Margin="0,20,0,0"/>
-            <TextBlock x:Name="StartPointBlock" Text="{Binding RouteLengthString}"  Margin="100,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="StartPointBlock" Text="{Binding StartPointCoords}"  Margin="100,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <TextBlock Text="End point:" Margin="0,40,0,0"/>
-            <TextBlock x:Name="EndPointBlock" Text="{Binding RouteLengthString}"  Margin="100,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="EndPointBlock" Text="{Binding EndPointCoords}"  Margin="100,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
         </Grid>
     </Grid>

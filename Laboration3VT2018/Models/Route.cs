@@ -11,6 +11,8 @@ namespace Laboration3VT2018.Models
     [Serializable()]
     public class Route
     {
+        public int ID { get; set; }
+
         public Position StartPosition { get; set; }
         
         public Position EndPosition { get; set; }

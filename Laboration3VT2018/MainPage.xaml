@@ -14,7 +14,9 @@
                    FontFamily="Calibri" FontSize="40"/>
         <ListView HorizontalAlignment="Center" Height="500" Margin="0,130,0,0"
                   VerticalAlignment="Top" Width="400" x:Name="RoutesListView"
-                  SelectionChanged="RoutesListView_SelectionChanged">
+                  SelectionChanged="RoutesListView_SelectionChanged"
+                  IsItemClickEnabled="True" SelectionMode="Single"
+                  ItemClick="RoutesListView_ItemClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel >
@@ -24,7 +26,7 @@
                            FontSize="24"  
                            FontWeight="SemiBold"
                            Foreground="Gray" 
-                           Tapped="Route_Tapped"/>
+                           />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -35,12 +35,9 @@ namespace Laboration3VT2018
         private void RoutesListView_ItemClick(object sender, ItemClickEventArgs e)
         {
 
-            var items = (sender as ListView).Items;
-            var route = items[index] as Route;
-            var id = route.ID;
-            var data = new RouteParameters { ID = id };
-            this.Frame.Navigate(typeof(RouteView), data);
-            
+            var route = e.ClickedItem as Route;
+            index = route.ID;
+
         }
 
 
@@ -84,7 +81,11 @@ namespace Laboration3VT2018
 
         private void RoutesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            index = RoutesListView.SelectedIndex;
+            var items = (sender as ListView).Items;
+            var route = items[index - 1] as Route;
+            var id = route.ID;
+            var data = new RouteParameters { ID = id };
+            this.Frame.Navigate(typeof(RouteView), data);
         }
 
     }

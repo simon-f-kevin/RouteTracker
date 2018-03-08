@@ -48,7 +48,11 @@ namespace Laboration3VT2018
         {
             var p = e.Parameter as RouteParameters;
             int id = p.ID;
-            thisRoute = App.listOfRoutes.Find(t => t.ID == id);
+            while(thisRoute == null)
+            {
+                thisRoute = App.listOfRoutes.Find(t => t.ID == id);
+            }
+            
 
             PopulatePageWithRouteData();
             ShowRouteOnMapAsync();

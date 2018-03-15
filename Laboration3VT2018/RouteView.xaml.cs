@@ -30,17 +30,17 @@ namespace Laboration3VT2018
     /// </summary>
     public sealed partial class RouteView : Page
     {
-        private int mainViewId;
-        private string RouteLengthString;
-        private string RouteName;
-        private string StartPointCoords;
-        private string EndPointCoords;
         private Route thisRoute;
         private MapHelper mapHelper;
+        private List<Route> routeList;
 
         public RouteView()
         {
             this.InitializeComponent();
+            Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+            //Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+
+            routeList = new List<Route>();
             mapHelper = new MapHelper();
         }
 
@@ -48,9 +48,10 @@ namespace Laboration3VT2018
         {
             var p = e.Parameter as RouteParameters;
             int id = p.ID;
+            routeList = p.RouteList;
             while(thisRoute == null)
             {
-                thisRoute = App.listOfRoutes.Find(t => t.ID == id);
+                thisRoute = routeList.Find(t => t.ID == id);
             }
             
 
@@ -62,12 +63,13 @@ namespace Laboration3VT2018
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            this.Frame.Navigate(typeof(MainPage), routeList);
         }
 
         private void RouteMapControl_MapTapped(MapControl sender, MapInputEventArgs args)
         {
-
+            
+            
         }
 
         private void PopulatePageWithRouteData()
@@ -124,6 +126,51 @@ namespace Laboration3VT2018
                 }
             }
             
+        }
+
+        private async void App_Suspending(Object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        {
+            //save data here
+            string data = this.BaseUri.LocalPath + Environment.NewLine + thisRoute.ID.ToString();
+            StorageFile sampleFile = await App.localFolder.CreateFileAsync("suspensiondata.txt", CreationCollisionOption.OpenIfExists);
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            await FileIO.WriteTextAsync(sampleFile, json);
+
+        }
+
+        private void App_Resuming(Object sender, Object e)
+        {
+            // TODO: Refresh network data, perform UI updates, and reacquire resources like cameras, I/O devices, etc.
+        }
+
+        private void RouteMapControl_MapElementClick(MapControl sender, MapElementClickEventArgs args)
+        {
+            var geoPoint = args.Location;
+            var clickedLat = geoPoint.Position.Latitude;
+            clickedLat = Math.Round(clickedLat, 2);
+            var clickedLong = geoPoint.Position.Longitude;
+            clickedLong = Math.Round(clickedLong, 2);
+            if (thisRoute.StartPosition.Point.Latitude.ToString().Contains(clickedLat.ToString()) && thisRoute.StartPosition.Point.Longitude.ToString().Contains(clickedLong.ToString()))
+            {
+                VisitSpeedBlock.Text = thisRoute.StartPosition.VisitSpeed.ToString();
+                VisitTimeBlock.Text = thisRoute.StartPosition.VisitedTime.ToString();
+            }
+            if (thisRoute.EndPosition.Point.Latitude.ToString().Contains(clickedLat.ToString()) && thisRoute.EndPosition.Point.Longitude.ToString().Contains(clickedLong.ToString()))
+            {
+                VisitSpeedBlock.Text = thisRoute.EndPosition.VisitSpeed.ToString();
+                VisitTimeBlock.Text = thisRoute.EndPosition.VisitedTime.ToString();
+            }
+            if (thisRoute.MarkedPositions != null)
+            {
+                foreach (var pos in thisRoute.MarkedPositions)
+                {
+                    if (pos.Point.Latitude.ToString().Contains(clickedLat.ToString()) && pos.Point.Longitude.ToString().Contains(clickedLong.ToString()))
+                    {
+                        VisitSpeedBlock.Text = pos.VisitSpeed.ToString();
+                        VisitTimeBlock.Text = pos.VisitedTime.ToString();
+                    }
+                }
+            }
         }
     }
 }

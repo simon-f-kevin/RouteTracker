@@ -9,6 +9,8 @@ namespace Laboration3VT2018.Models
     public class RouteParameters
     {
         public int ID { get; set; }
+
+        public List<Route> RouteList { get; set; }
         
     }
 }

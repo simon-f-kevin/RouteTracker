@@ -21,6 +21,7 @@
                 ZoomInteractionMode="GestureAndControl"
                 TiltInteractionMode="GestureAndControl"   
                 MapTapped="RouteMapControl_MapTapped"
+                MapElementClick="RouteMapControl_MapElementClick"
                 MapServiceToken="BoFwcQQMupzMjLfxosys~_DbsraxqOP6B7uW7cgRiog~AgeypKg6V3lVKah4SzCauLJYJZMeKvTwvLNk6y7vypfrSen9OlwJ1TkNEltqjMPr"/>
         </Grid>
         <Grid x:Name="InfoGrid" VerticalAlignment="Bottom" HorizontalAlignment="Center"
@@ -31,7 +32,10 @@
             <TextBlock x:Name="StartPointBlock" Text="{Binding StartPointCoords}"  Margin="100,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <TextBlock Text="End point:" Margin="0,40,0,0"/>
             <TextBlock x:Name="EndPointBlock" Text="{Binding EndPointCoords}"  Margin="100,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-
+            <TextBlock Text="Visit Speed:" Margin="0,60,0,0"/>
+            <TextBlock x:Name="VisitSpeedBlock" Text=""  Margin="100,60,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <TextBlock Text="Visit Time:" Margin="0,80,0,0"/>
+            <TextBlock x:Name="VisitTimeBlock" Text=""  Margin="100,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         </Grid>
     </Grid>
 </Page>

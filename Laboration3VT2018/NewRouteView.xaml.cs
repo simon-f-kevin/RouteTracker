@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
@@ -33,6 +34,8 @@ namespace Laboration3VT2018
         public NewRouteView()
         {
             this.InitializeComponent();
+            Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
+            //Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -49,7 +52,7 @@ namespace Laboration3VT2018
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            this.Frame.Navigate(typeof(MainPage), MainPage.RouteList);
         }
 
         private async void RouteMapControl_MapTapped(MapControl sender, MapInputEventArgs args)
@@ -66,7 +69,7 @@ namespace Laboration3VT2018
                 if (currentPos.Coordinate.Point == geoPoint)
                 {
                     startPosition.IsVisited = true;
-                    startPosition.VisitedTime = DateTime.Now;
+                    startPosition.VisitedTime = DateTime.Now.Date;
                     startPosition.VisitSpeed = (float)currentPos.Coordinate.Speed;
                 }
                 var icon = mapHelper.AddIconToMap(startPosition.Point, "Start");
@@ -159,7 +162,7 @@ namespace Laboration3VT2018
 
             Route newRoute = new Route()
             {
-                ID = App.listOfRoutes.Count + 1,
+                ID = MainPage.RouteList.Count + 1,
                 RouteName = RouteNameBox.Text,
                 StartPosition = startPosition,
                 EndPosition = endPosition,
@@ -188,7 +191,7 @@ namespace Laboration3VT2018
 
             await FileIO.WriteTextAsync(sampleFile, json);
 
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(MainPage), App.listOfRoutes);
         }
 
         private async void GetCurrentPosition()
@@ -235,6 +238,27 @@ namespace Laboration3VT2018
              result = await monitoredPositionDialog.ShowAsync();
         }
 
-        
+        private async void App_Suspending(Object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        {
+            //save data here
+            string data = this.BaseUri.LocalPath;
+            StorageFile sampleFile = await App.localFolder.CreateFileAsync("suspensiondata.txt", CreationCollisionOption.OpenIfExists);
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            await FileIO.WriteTextAsync(sampleFile, json);
+        }
+
+        //private async void App_Resuming(Object sender, Object e)
+        //{
+        //    // TODO: Refresh network data, perform UI updates, and reacquire resources like cameras, I/O devices, etc.
+        //    StorageFile sampleFile = await App.localFolder.GetFileAsync("suspensiondata.txt");
+        //    string json = File.ReadAllText(sampleFile.Path);
+        //    Route tempRoute = JsonConvert.DeserializeObject<Route>(json);
+        //    RouteNameBox.Text = tempRoute.RouteName;
+        //    startPosition = tempRoute.StartPosition;
+        //    endPosition = tempRoute.EndPosition;
+        //    markedPositions = tempRoute.MarkedPositions;
+        //}
+
+
     }
 }

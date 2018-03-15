@@ -68,8 +68,33 @@ namespace Laboration3VT2018
 
         private void RouteMapControl_MapTapped(MapControl sender, MapInputEventArgs args)
         {
-            
-            
+            var geoPoint = args.Location;
+            var clickedLat = geoPoint.Position.Latitude;
+            clickedLat = Math.Round(clickedLat, 3);
+            var clickedLong = geoPoint.Position.Longitude;
+            clickedLong = Math.Round(clickedLong, 3);
+            if (thisRoute.StartPosition.Point.Latitude.ToString().Contains(clickedLat.ToString()) && thisRoute.StartPosition.Point.Longitude.ToString().Contains(clickedLong.ToString()))
+            {
+                VisitSpeedBlock.Text = thisRoute.StartPosition.VisitSpeed.ToString();
+                VisitTimeBlock.Text = thisRoute.StartPosition.VisitedTime.ToString();
+            }
+            if (thisRoute.EndPosition.Point.Latitude.ToString().Contains(clickedLat.ToString()) && thisRoute.EndPosition.Point.Longitude.ToString().Contains(clickedLong.ToString()))
+            {
+                VisitSpeedBlock.Text = thisRoute.EndPosition.VisitSpeed.ToString();
+                VisitTimeBlock.Text = thisRoute.EndPosition.VisitedTime.ToString();
+            }
+            if (thisRoute.MarkedPositions != null)
+            {
+                foreach (var pos in thisRoute.MarkedPositions)
+                {
+                    if (pos.Point.Latitude.ToString().Contains(clickedLat.ToString()) && pos.Point.Longitude.ToString().Contains(clickedLong.ToString()))
+                    {
+                        VisitSpeedBlock.Text = pos.VisitSpeed.ToString();
+                        VisitTimeBlock.Text = pos.VisitedTime.ToString();
+                    }
+                }
+            }
+
         }
 
         private void PopulatePageWithRouteData()
@@ -147,9 +172,9 @@ namespace Laboration3VT2018
         {
             var geoPoint = args.Location;
             var clickedLat = geoPoint.Position.Latitude;
-            clickedLat = Math.Round(clickedLat, 2);
+            clickedLat = Math.Truncate(100 * clickedLat) / 100; //Math.Round(clickedLat, 3);
             var clickedLong = geoPoint.Position.Longitude;
-            clickedLong = Math.Round(clickedLong, 2);
+            clickedLong = Math.Truncate(100 * clickedLong) / 100;//Math.Round(clickedLong, 3);
             if (thisRoute.StartPosition.Point.Latitude.ToString().Contains(clickedLat.ToString()) && thisRoute.StartPosition.Point.Longitude.ToString().Contains(clickedLong.ToString()))
             {
                 VisitSpeedBlock.Text = thisRoute.StartPosition.VisitSpeed.ToString();

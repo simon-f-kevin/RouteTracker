@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Background;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Newtonsoft.Json;
+using Windows.UI.Notifications;
 
 namespace ScheduleTask
 {
@@ -32,10 +33,22 @@ namespace ScheduleTask
             GetCurrentPosAsync();
             CheckIfCurrentPosIsMonitored(currentPos);
             WriteSpeedAndTimeOfVisitToStorageAsync();
+            ToastMessage();
 
 
             _deferral.Complete();
             
+        }
+
+        private void ToastMessage()
+        {
+            ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText01;
+            Windows.Data.Xml.Dom.XmlDocument toastxml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+            Windows.Data.Xml.Dom.XmlNodeList toastTextElements = toastxml.GetElementsByTagName("text");
+            toastTextElements[0].AppendChild(toastxml.CreateTextNode("You are at a marked position"));
+            ToastNotification toast = new ToastNotification(toastxml);
+
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
 
         private async void GetCurrentPosAsync()

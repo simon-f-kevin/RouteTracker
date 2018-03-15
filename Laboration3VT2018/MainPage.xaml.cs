@@ -27,7 +27,7 @@ namespace Laboration3VT2018
         {
             this.InitializeComponent();
             App.listOfRoutes = new List<Route>();
-            //AddDataToRoutesListView();
+            AddDataToRoutesListView(App.listOfRoutes);
             Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
             Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
         }
@@ -122,7 +122,12 @@ namespace Laboration3VT2018
                 builder.TaskEntryPoint = "ScheduleTask.ScheduleTask";
                 builder.SetTrigger(new TimeTrigger(30, false));
                 var registration = builder.Register();
+                registration.Completed += TaskRegistration_Completed;
             }
+        }
+        private void TaskRegistration_Completed(BackgroundTaskRegistration sender, BackgroundTaskCompletedEventArgs args)
+        {
+            //completed task
         }
     }
 }

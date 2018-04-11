@@ -116,8 +116,10 @@ namespace ScheduleTask
 
                         Geolocator geolocator = new Geolocator { DesiredAccuracyInMeters = 10 };
 
-                        Geoposition pos = await geolocator.GetGeopositionAsync();
-                        currentPos = pos;
+                        //Geoposition pos = await geolocator.GetGeopositionAsync();
+                        var nativeObject = new LocationComponent.GetLocation();
+                        var position = await nativeObject.ReturnPosition();
+                        currentPos = position;
                         break;
 
                     case GeolocationAccessStatus.Denied:

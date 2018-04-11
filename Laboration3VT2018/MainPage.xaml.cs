@@ -29,8 +29,9 @@ namespace Laboration3VT2018
             App.listOfRoutes = new List<Route>();
             AddDataToRoutesListView(App.listOfRoutes);
             Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
-            Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
+            //Application.Current.Resuming += new EventHandler<Object>(App_Resuming);
         }
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

@@ -123,6 +123,10 @@
       <Project>{987AC1F5-8B32-49DD-852D-FE16769EDF60}</Project>
       <Name>Laboration3VT2018</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LocationComponent\LocationComponent.vcxproj">
+      <Project>{e0c26453-ab52-480e-abc8-1737da16a7bb}</Project>
+      <Name>LocationComponent</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
